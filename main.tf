@@ -1,5 +1,6 @@
 
 locals {
+
   config_file = file("${path.module}/config.yaml")
   config      = yamldecode(local.config_file)
 

@@ -13,7 +13,7 @@ variable "region" {
 variable "environment" {
   description = "Environment Name (dev, prod)"
   type        = string
-  default     = "dev"
+  default     = ""
 
   validation {
     condition     = can(regex("^(qa|dev|st[ag]|pr[do])[a-z0-9]{0,9}$", var.environment))
