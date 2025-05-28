@@ -1,4 +1,20 @@
 
+## Infra
+data "terraform_remote_state" "infra" {
+  backend = "s3"
+
+  config = {
+    bucket       = "github-eenee2ma9ohxeiquua2ingaipaz6eerahsugheesaen9asa3fee1koor"
+    key          = "env:/${terraform.workspace}/infra/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
+    encrypt      = true
+  }
+}
+
+
+
+
 ## VPC
 variable "region" {
   description = "AWS region to deploy the resources"
@@ -24,4 +40,20 @@ variable "environment" {
     condition     = terraform.workspace == var.environment
     error_message = "Invalid workspace: The active workspace '${terraform.workspace}' does not match the specified environment '${var.environment}'."
   }
+}
+
+
+
+
+locals {
+
+  config_file = file("${path.module}/config.yaml")
+  config      = yamldecode(local.config_file)
+
+  env_config = local.config.environments[var.environment]
+
+  ecr_base_url      = "${local.env_config.cloud.account_id}.dkr.ecr.${local.env_config.cloud.region}.amazonaws.com"
+  micro_services    = local.env_config.cluster.micro_services
+  dynamic_hosts     = local.env_config.cluster.dynamic_hosts
+  statics_hosts_max = local.env_config.cluster.statics_hosts_max
 }

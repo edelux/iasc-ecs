@@ -121,7 +121,7 @@ module "alb" {
     https = {
       port            = 443
       protocol        = "HTTPS"
-      certificate_arn = var.ssl_certificate_arn
+      certificate_arn = var.ssl_certificate_arn[each.key]
       forward = {
         target_group_key = "default-instance"
       }
@@ -159,7 +159,7 @@ module "route53_A_to_CNAME_records" {
   source   = "terraform-aws-modules/route53/aws//modules/records"
   for_each = toset(var.micro_services)
 
-  zone_name = var.domain_name
+  zone_name = var.domain
   records = [
     {
       name = "${each.key}"

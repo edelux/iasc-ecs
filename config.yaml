@@ -1,6 +1,4 @@
 ---
-zone:
-
 environments:
   dev:
     cloud:
@@ -8,16 +6,7 @@ environments:
       region:
       account_id:
 
-    networking:
-      vpc_cidr:
-      availability_zones:
-      subnet_bits_mask:
-
     security:
-      ssl_certificate_arn:
-
-    dns:
-      domain_name:
 
     cluster:
       dynamic_hosts:
