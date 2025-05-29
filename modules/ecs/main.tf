@@ -2,7 +2,7 @@
 module "ecs" {
   source = "terraform-aws-modules/ecs/aws"
 
-  cluster_name = "${terraform.workspace}-ecs-${var.project}"
+  cluster_name = "${terraform.workspace}-${var.project}-ecs"
 
   fargate_capacity_providers = {
     FARGATE = {
