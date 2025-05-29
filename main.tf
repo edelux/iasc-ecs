@@ -1,6 +1,7 @@
 
 module "ecr" {
   source         = "./modules/registry"
+  project        = local.project
   ecr_base_url   = local.ecr_base_url
   micro_services = local.micro_services
 }
@@ -15,6 +16,7 @@ module "acm" {
 
 module "ecs" {
   source               = "./modules/ecs"
+  project              = local.project
   ecr_base_url         = local.ecr_base_url
   dynamic_hosts        = local.dynamic_hosts
   micro_services       = local.micro_services

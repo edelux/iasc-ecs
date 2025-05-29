@@ -52,6 +52,7 @@ locals {
 
   env_config = local.config.environments[var.environment]
 
+  project           = local.config.project
   ecr_base_url      = "${local.env_config.cloud.account_id}.dkr.ecr.${local.env_config.cloud.region}.amazonaws.com"
   micro_services    = local.env_config.cluster.micro_services
   dynamic_hosts     = local.env_config.cluster.dynamic_hosts

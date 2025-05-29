@@ -3,7 +3,7 @@ module "registry" {
   source   = "terraform-aws-modules/ecr/aws"
   for_each = toset(var.micro_services)
 
-  repository_name         = each.key
+  repository_name         = "${var.project}/${each.key}"
   repository_force_delete = true
 
   repository_lifecycle_policy = jsonencode({
@@ -32,6 +32,7 @@ module "registry" {
 
   tags = {
     Terraform     = "true"
+    Project       = var.project
     Environment   = terraform.workspace
     MicroServicio = "${each.key}-ms"
   }

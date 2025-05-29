@@ -2,7 +2,7 @@
 module "ecs" {
   source = "terraform-aws-modules/ecs/aws"
 
-  cluster_name = "${terraform.workspace}-ecs_cluster"
+  cluster_name = "${terraform.workspace}-ecs-${var.project}"
 
   fargate_capacity_providers = {
     FARGATE = {
@@ -31,7 +31,7 @@ module "ecs" {
           cpu                      = 64
           memory                   = 64
           essential                = true
-          image                    = "${var.ecr_base_url}/${service}:latest"
+          image                    = "${var.ecr_base_url}/${var.project}/${service}:latest"
           readonly_root_filesystem = false
 
           port_mappings = [
@@ -77,6 +77,7 @@ module "ecs" {
 
   tags = {
     Terraform   = "true"
+    Project     = var.project
     Environment = terraform.workspace
   }
   depends_on = [module.alb]
@@ -91,7 +92,7 @@ module "alb" {
   vpc_id                     = var.vpc_id
   load_balancer_type         = "application"
   subnets                    = var.public_subnet_ids
-  name                       = "${each.key}-${terraform.workspace}-alb"
+  name                       = "${each.key}-${terraform.workspace}-${var.project}alb"
   enable_deletion_protection = false
 
   security_group_ingress_rules = {
@@ -150,6 +151,7 @@ module "alb" {
 
   tags = {
     Terraform   = "true"
+    Project     = var.project
     Environment = terraform.workspace
   }
 }

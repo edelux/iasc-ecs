@@ -1,6 +1,7 @@
 
 variable "domain" {}
 variable "vpc_id" {}
+variable "project" {}
 variable "vpc_cidr" {}
 variable "target_id" {}
 variable "ecr_base_url" {}

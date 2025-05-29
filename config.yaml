@@ -1,10 +1,12 @@
 ---
+project: fntva
+
 environments:
   dev:
     cloud:
       provider: aws
-      region: us-east-1
-      account_id: 199920436475
+      region: <region>
+      account_id: <account>
 
     security:
 
