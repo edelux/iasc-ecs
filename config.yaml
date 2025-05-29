@@ -2,15 +2,16 @@
 environments:
   dev:
     cloud:
-      provider:
-      region:
-      account_id:
+      provider: aws
+      region: us-east-1
+      account_id: 199920436475
 
     security:
 
     cluster:
-      dynamic_hosts:
-      statics_hosts_max:
+      dynamic_hosts: 1
+      statics_hosts_max: 1
       micro_services:
-        -
+        - fastapi
+        - django
 ...
