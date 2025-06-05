@@ -7,8 +7,8 @@ data "terraform_remote_state" "infra" {
     bucket       = "github-eenee2ma9ohxeiquua2ingaipaz6eerahsugheesaen9asa3fee1koor"
     key          = "env:/${terraform.workspace}/infra/terraform.tfstate"
     region       = "us-east-1"
-    use_lockfile = true
     encrypt      = true
+    use_lockfile = true
   }
 }
 
@@ -26,8 +26,8 @@ variable "region" {
   }
 }
 
-variable "environment" {
-  description = "Environment Name (dev, prod)"
+variable "environment" { #REQUIRED
+  description = "Environment Name (dev, qa, stg, prod)"
   type        = string
   default     = ""
 
